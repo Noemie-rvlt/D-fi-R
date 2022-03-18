@@ -51,12 +51,13 @@ resKmeans <- kmeans(expData, centers = N)
 plotGenes(expData, yMax = 100000)
 cluster1 <- expData[which(resKmeans$cluster == 1),]
 plotGenes(cluster1, yMax = 100000)
+if(nrow(cluster1)>1){heatmap(as.matrix(cluster1))}
 cluster2 <- expData[which(resKmeans$cluster == 2),]
 plotGenes(cluster2, yMax = 100000)
 cluster3 <- expData[which(resKmeans$cluster == 3),]
 plotGenes(cluster3, yMax = 100000)
 cluster4 <- expData[which(resKmeans$cluster == 4),]
-plotGenes(cluster4, yMax = 100000)
+
 
 # Classification HCL
 d<- dist(expData)
@@ -80,25 +81,33 @@ matDist <- as.dist(1 - cor(t(expData)))
 resKmeans2 <- kmeans(matDist, centers = 4)
 plotGenes(expData, yMax = 100000)
 cluster1 <- expData[which(resKmeans2$cluster == 1),]
+heatmap(as.matrix(cluster1))
 plotGenes(cluster1, yMax = 100000)
 cluster2 <- expData[which(resKmeans2$cluster == 2),]
 plotGenes(cluster2, yMax = 100000)
+heatmap(as.matrix(cluster2))
 cluster3 <- expData[which(resKmeans2$cluster == 3),]
 plotGenes(cluster3, yMax = 100000)
+heatmap(as.matrix(cluster3))
 cluster4 <- expData[which(resKmeans2$cluster == 4),]
 plotGenes(cluster4, yMax = 100000)
+heatmap(as.matrix(cluster4))
 
 # HCL et correlation
 resHCL2 <- hclust(matDist)
 plot(resHCL2)
 cluster1 <- expData[which(cutree(resHCL2, k = N) == 1),]
 plotGenes(cluster1, yMax = 100000)
+heatmap(as.matrix(cluster1))
 cluster2 <- expData[which(cutree(resHCL2, k = N) == 2),]
 plotGenes(cluster2, yMax = 100000)
+heatmap(as.matrix(cluster2))
 cluster3 <- expData[which(cutree(resHCL2, k = N) == 3),]
 plotGenes(cluster3, yMax = 100000)
+heatmap(as.matrix(cluster3))
 cluster4 <- expData[which(cutree(resHCL2, k = N) == 4),]
 plotGenes(cluster4, yMax = 1000000)
+heatmap(as.matrix(cluster4))
 
 
 

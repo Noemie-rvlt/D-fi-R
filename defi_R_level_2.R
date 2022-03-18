@@ -5,7 +5,7 @@ expData <- read.table("cell-cycle_SCERE_DUO.txt", row.names = 1, sep = "\t", hea
 
 #Choisir ses paramètres : choisir N, method (kmeans ou HCL) et distance (euclidean ou correlation)
 N = 10
-method = "kmeans"
+method = "HCL"
 distance="euclidean"
 
 # Ma fonction :)
@@ -51,6 +51,8 @@ plotGenes(expData, yMax = 100000)
 for(i in 1:N){
   cluster <- expData[which(resKmeans$cluster == i),]
   plotGenes(cluster, yMax = 100000)
+  if(nrow(cluster)>1){
+    heatmap(as.matrix(cluster))}
 }}else if((method=="HCL")&(distance=="euclidean")){
   d<- dist(expData)
   resHCL <- hclust(d)
@@ -58,6 +60,8 @@ for(i in 1:N){
   for(i in 1:N){
     cluster <- expData[which(cutree(resHCL, k = N) == i),]
     plotGenes(cluster, yMax = 100000)
+    if(nrow(cluster)>1){
+      heatmap(as.matrix(cluster))}
   }
 }else if((method=="kmeans")&(distance=="correlation")){
   cor(expData)
@@ -68,6 +72,8 @@ for(i in 1:N){
   for(i in 1:N){
     cluster <- expData[which(resKmeans2$cluster == i),]
     plotGenes(cluster, yMax = 100000)
+    if(nrow(cluster)>1){
+      heatmap(as.matrix(cluster))}
   }
 }else if((method=="HCL")&(distance=="correlation")){
   cor(expData)
@@ -77,5 +83,6 @@ for(i in 1:N){
   plot(resHCL2)
 for(i in 1:N){
   cluster <- expData[which(cutree(resHCL2, k = N) == i),]
-  plotGenes(cluster, yMax = 100000)}
-}
+  if(nrow(cluster)>1){
+    heatmap(as.matrix(cluster))}
+}}

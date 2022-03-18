@@ -49,6 +49,8 @@ plotGenes(expData, yMax = 100000)
 for(i in 1:N){
 cluster <- expData[which(resKmeans$cluster == i),]
 plotGenes(cluster, yMax = 100000)
+if(nrow(cluster)>1){
+heatmap(as.matrix(cluster))}
 }
 
 # Classification HCL
@@ -58,6 +60,7 @@ plot(resHCL)
 for(i in 1:N){
 cluster <- expData[which(cutree(resHCL, k = N) == i),]
 plotGenes(cluster, yMax = 100000)
+heatmap(as.matrix(cluster))
 }
 
 # Création d'une matrice de distance
@@ -71,6 +74,7 @@ plotGenes(expData, yMax = 100000)
 for(i in 1:N){
 cluster <- expData[which(resKmeans2$cluster == i),]
 plotGenes(cluster, yMax = 100000)
+heatmap(as.matrix(cluster))
 }
 
 
@@ -80,4 +84,5 @@ plot(resHCL2)
 for(i in 1:N){
 cluster <- expData[which(cutree(resHCL2, k = N) == i),]
 plotGenes(cluster, yMax = 100000)
+heatmap(as.matrix(cluster))
 }
